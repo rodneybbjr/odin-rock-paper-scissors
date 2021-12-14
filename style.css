@@ -1,0 +1,45 @@
+img {
+  width: 100px;
+  height: 100px;
+}
+
+.keys {
+  box-sizing: border-box;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.key {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: x-large;
+  font-weight: 900;
+}
+
+.results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  font-size: xx-large;
+  font-weight: 900;
+}
+
+.rockdiv,
+.paperdiv,
+.scissordiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px 0;
+  align-items: center;
+  justify-content: center;
+}

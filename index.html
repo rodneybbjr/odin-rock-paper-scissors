@@ -5,7 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
-    <script src="/rock-paper-scissors.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="/rock-paper-scissors.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <div class="intro">Welcome to Rock Paper Scissors. Please Choose</div>
+    <div class="keys">
+      <div class="rockdiv">
+        <img src="static/rock-576669.svg" alt="rock" />
+        <button id="rock" class="key">Rock</button>
+      </div>
+      <div class="paperdiv">
+        <img src="static/paper-23652.svg" alt="paper" />
+        <button id="paper" class="key">Papaer</button>
+      </div>
+      <div class="scissordiv">
+        <img src="static/cut-97585.svg" alt="scissors" />
+        <button id="scissors" class="key">Scissors</button>
+      </div>
+    </div>
+    <div class="results"></div>
+  </body>
 </html>

@@ -1,11 +1,24 @@
 function computerPlay() {
   const possibleHands = ["rock", "paper", "scissors"];
-  const randomHand = possibleHands[~~(Math.random() * possibleHands.length)];
+  const randomHand =
+    possibleHands[Math.floor(Math.random() * possibleHands.length)];
   return randomHand;
+}
+
+function isLegalChoice(playerSelection) {
+  switch (playerSelection) {
+    case "rock":
+    case "paper":
+    case "scissors":
+      return true;
+    default:
+      return false;
+  }
 }
 
 function playerPlay() {
   // make case agnostic
+
   return prompt("Enter: 'Rock', 'Paper' or 'Scissors' to play.").toLowerCase();
 }
 
@@ -22,42 +35,53 @@ function isWinner(playerSelection = "", computerSelection = "") {
   }
 }
 
-function playRound() {
+function playRound(e) {
   // plays round of game
   let playerWon = undefined;
 
-  let playerSelection = playerPlay();
+  // let playerSelection = playerPlay();
+  let playerSelection = e;
+  console.log(playerSelection);
+
+  if (!isLegalChoice(playerSelection)) {
+    exit();
+  }
   console.log(`Player: ${playerSelection}`);
 
   let computerSelection = computerPlay();
   console.log(`Computer: ${computerSelection}`);
 
+  const winText = `You Won! ${playerSelection} beats ${computerSelection}`;
+  const losetext = `You Lose! ${computerSelection} beats ${playerSelection}`;
+
   // to prevent draws
-  while (playerSelection === computerSelection) {
-    computerSelection = computerPlay();
-    console.log("skipping draw");
-    console.log(`Redraw: ${computerSelection}`);
+  // while (playerSelection === computerSelection) {
+  //   computerSelection = computerPlay();
+  //   console.log("skipping draw");
+  //   console.log(`Redraw: ${computerSelection}`);
+  // }
+
+  if (playerSelection == computerSelection) {
+    updateWinner(`Draw! You both chose ${playerSelection} try again.`);
+    return;
   }
 
   if (isWinner(playerSelection, computerSelection)) {
-    console.log(
-      `You Won The Round! ${playerSelection} beats ${computerSelection}`
-    );
+    console.log(winText);
     playerWon = true;
   } else {
-    console.log(
-      `You Lose The Round! ${computerSelection} beats ${playerSelection}`
-    );
+    console.log(losetext);
     playerWon = false;
   }
   // return result
+  playerWon ? updateWinner(winText) : updateWinner(losetext);
   console.log(`Round Winner: ${playerWon}`);
   return playerWon;
 }
 
 function game() {
   // main game loop
-  const numberOfRounds = 5;
+  const numberOfRounds = 1;
   let playerScore = 0;
   let computerScore = 0;
 
@@ -72,15 +96,25 @@ function game() {
   }
   // determin winner
   if (playerScore > computerScore) {
-    console.log(
-      `You Won Game! Player:${playerScore} Computer:${computerScore}`
-    );
+    updateWinner(winText);
+    console.log(winText);
     gamesWon++;
   } else {
-    console.log(
-      `You Lose Game! Computer:${computerScore} Player:${playerScore}`
-    );
+    updateWinner(losetext);
+    console.log(losetext);
   }
 }
 
-game();
+function updateWinner(winText) {
+  const winnerDiv = document.querySelector(".results");
+  winnerDiv.textContent = winText;
+}
+const keys = document.querySelectorAll(".key");
+console.log(keys);
+
+keys.forEach((key) =>
+  key.addEventListener("click", function () {
+    console.log(key.id);
+    playRound(key.id);
+  })
+);
